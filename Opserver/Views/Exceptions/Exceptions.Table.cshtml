@@ -1,0 +1,54 @@
+﻿@using StackExchange.Opserver.Data.Exceptions
+@model StackExchange.Opserver.Views.Exceptions.ExceptionsModel
+@{
+    var showActions = Current.User.IsExceptionAdmin;
+    var displayed = Model.Errors.Sum(e => e.DuplicateCount.GetValueOrDefault(1));
+}
+@helper HeaderLink(string text, ExceptionSorts sort)
+{
+    var sortStr = sort.ToString();
+    var linkSort = Model.Sort != sort
+        ? sortStr
+        : (sortStr.Contains("Asc")
+            ? sortStr.Replace("Asc", "Desc")
+            : sortStr.Replace("Desc", "Asc"));
+    var qs = Model.RequestQueryString;
+    qs.Set("sort", linkSort);
+    <a href="?@(qs.ToString())">@text</a>
+}
+<table class="exceptions-dashboard striped-dashboard" data-total-count="@Model.TotalCount" data-title="@Model.Title" data-displayed="@displayed">
+        <thead>
+            <tr class="category-row">
+                <th colspan="9">
+                    <h3>
+                        <span class="exception-title">@Model.Title</span>
+                        @if (Model.ShowClearLink)
+                        {
+                            if (Model.ClearLinkForVisibleOnly)
+                            {
+                                <a class="delete-link clear-visible-link" href="#">&nbsp;X&nbsp;- Clear visible errors</a>
+                            }
+                            else
+                            {
+                                <a class="clear-all-link" href="/exceptions/delete-all">&nbsp;X&nbsp;- Clear all non-protected errors</a>
+                            }
+                        }
+                    </h3>
+                </th>
+            </tr>
+            <tr class="sort-row">
+                <th class="@(showActions ? "" : "hidden")"></th>
+                <th>@HeaderLink("Time", ExceptionSorts.TimeDesc)</th>
+                <th>@(Model.ShowAll ? HeaderLink("App", ExceptionSorts.AppAsc) : HeaderLink("Type", ExceptionSorts.TypeAsc))</th>
+                <th>@HeaderLink("Error", ExceptionSorts.MessageAsc)</th>
+                <th>@HeaderLink("Url", ExceptionSorts.UrlAsc)</th>
+                <th>@HeaderLink("Remote IP", ExceptionSorts.IPAddressAsc)</th>
+                <th>@HeaderLink("Host", ExceptionSorts.HostAsc)</th>
+                <th>@HeaderLink("Server", ExceptionSorts.MachineNameAsc)</th>
+                <th>@HeaderLink("Count", ExceptionSorts.CountDesc)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @Html.Partial("Exceptions.Table.Rows", Model)
+        </tbody>
+    </table>
