@@ -215,6 +215,4 @@ pip-log.txt
 
 .hg
 .hgignore
-Opserver/config/*.json
-Opserver/config/*.config
 *.StackOverflow.*
