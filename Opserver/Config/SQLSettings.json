@@ -1,0 +1,9 @@
+﻿{
+    "defaultConnectionString": "Data Source=.\\sqlexpress;Initial Catalog=master;UID=sa;pwd=apsp12345;",
+    "instances": [
+		{ 
+            "name": "localhost",
+            "connectionString": "Data Source=.\\sqlexpress;Database=master;UID=sa;pwd=apsp12345;", 
+        }
+    ]
+}

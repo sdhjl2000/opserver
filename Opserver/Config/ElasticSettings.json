@@ -1,0 +1,11 @@
+﻿{
+    "clusters": [
+        {
+            "name": "elasticsearch_sdhjl2000",
+            "refreshIntervalSeconds": "10",
+            "nodes": [
+                "192.168.1.100"
+            ]
+        } 
+    ]
+}

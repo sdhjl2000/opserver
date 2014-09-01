@@ -1,0 +1,16 @@
+﻿{
+    "warningRecentCount": "100",
+    "criticalRecentCount": "200",
+    "viewGroups": "StatusExceptionsRO",
+    "applications": [
+        "SOMVC"
+    ],
+    "stores": [
+        {
+            "name": "New York",
+            "queryTimeoutMs": 2000,
+            "pollIntervalSeconds": 10,
+            "connectionString": "Server=.\\sqlexpress;Database=SO;uid=sa;pwd=apsp12345;"
+        }
+    ]
+}
